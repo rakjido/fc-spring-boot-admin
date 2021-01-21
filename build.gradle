@@ -26,5 +26,6 @@ dependencies {
 }
 
 test {
-	useJUnitPlatform()
+//  useJUnitPlatform()
+	forkEvery = 1
 }

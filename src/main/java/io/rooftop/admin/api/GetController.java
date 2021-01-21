@@ -20,9 +20,9 @@ public class GetController {
 
     @GetMapping("/api/getMultiParameter")
     public SearchParam getMultiParameter(SearchParam searchParam) {
-        System.out.println("searchParam.getAccount() = " + searchParam.getAccount());
-        System.out.println("searchParam.getEmail() = " + searchParam.getEmail());
-        System.out.println("searchParam.getPage() = " + searchParam.getPage());
+//        System.out.println("searchParam.getAccount() = " + searchParam.getAccount());
+//        System.out.println("searchParam.getEmail() = " + searchParam.getEmail());
+//        System.out.println("searchParam.getPage() = " + searchParam.getPage());
         return searchParam;
     }
 }
