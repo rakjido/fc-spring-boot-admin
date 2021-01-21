@@ -1,12 +1,9 @@
 package io.rooftop.admin.repository;
 
+import io.rooftop.admin.AdminApplicationTests;
 import io.rooftop.admin.entity.User;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
@@ -15,54 +12,58 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
-class UserRepositoryTest {
+class UserRepositoryTest extends AdminApplicationTests {
 
     @Autowired
     private UserRepository userRepository;
 
     public User createUser() {
-        // Given
-        User user = new User();
-        user.setAccount("testUser1");
-        user.setEmail("testUser1@gmail.com");
-        user.setPhonenumber("010-111-1111");
-        user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("admin");
+        String account = "Test01";
+        String password = "1234";
+        String status = "REGISTERED";
+        String email = "Test01@gmail.com";
+        String phoneNumber = "010-1111-2222";
+        LocalDateTime registeredAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
+
+        User user = User.builder()
+                .account(account)
+                .password(password)
+                .status(status)
+                .email(email)
+                .phoneNumber(phoneNumber)
+                .registeredAt(registeredAt)
+                .createdAt(createdAt)
+                .createdBy(createdBy)
+                .build();
         return user;
     }
 
-    @AfterEach
-    public void deleteAll() {
-        userRepository.deleteAll();
-    }
 
     @Test
-    public void create_테스트() throws Exception {
+    public void create_user_테스트() throws Exception {
         // Given
         User user = createUser();
 
         // When
         User savedUser = userRepository.save(user);
         // Then
-        System.out.println("savedUser.getAccount() = " + savedUser.getAccount());
+        assertNotNull(savedUser);
         assertThat(savedUser.getEmail()).isEqualTo(user.getEmail());
     }
 
     @Test
-    public void read_테스트() throws Exception {
+    public void read_user_테스트() throws Exception {
         // Given
         User user = createUser();
-        User savedUser = userRepository.save(user);
+//        User savedUser = userRepository.save(user);
 
         // When
-        Optional<User> findUser = userRepository.findById(savedUser.getId());
+        User findUser = userRepository.findFirstByPhoneNumberOrderByIdDesc(user.getPhoneNumber());
 
         // Then
-        findUser.ifPresent(selectUser -> {
-                    assertThat(selectUser.getEmail()).isEqualTo(user.getEmail());
-                }
-        );
+        assertNotNull(findUser);
     }
 
 
@@ -91,7 +92,7 @@ class UserRepositoryTest {
         Optional<User> findUser = userRepository.findById(savedUser.getId());
         findUser.ifPresent(selectUser -> {
                     selectUser.setEmail("viva@gmail.com");
-                    selectUser.setPhonenumber("010-999-9999");
+                    selectUser.setPhoneNumber("010-999-9999");
 //                    userRepository.save(selectUser);
                 });
 

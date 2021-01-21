@@ -1,30 +1,30 @@
 package io.rooftop.admin.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-@ToString(exclude = {"user","item"})
+@Getter
 @Entity
-public class OrderDetail {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String status;
+    private String type;
 
-    private LocalDateTime arrivalDate;
-
-    private Integer quantity;
-
-    private BigDecimal totalPrice;
+    private String title;
 
     private LocalDateTime createdAt;
 
@@ -33,5 +33,4 @@ public class OrderDetail {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
-
 }
