@@ -10,8 +10,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@ToString(exclude = {"orderDetailList"})
 @Entity
-public class Item {
+public class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,11 +33,11 @@ public class Item {
 
     private LocalDateTime unregisteredAt;
 
-    private LocalDateTime createdAt;
+    // Item 1 : N OrderDetail
+    @OneToMany(mappedBy = "item")
+    private List<OrderDetail> orderDetailList;
 
-    private String createdBy;
-
-    private LocalDateTime updatedAt;
-
-    private String updatedBy;
+    // Item N : 1 Partner
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Partner partner;
 }

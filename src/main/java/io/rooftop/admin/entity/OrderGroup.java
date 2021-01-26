@@ -5,19 +5,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
-public class OrderGroup {
+public class OrderGroup extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,14 +39,13 @@ public class OrderGroup {
 
     private LocalDateTime orderAt;
 
-    private LocalDateTime arrivalAt;
+    private LocalDateTime arrivalDate;
 
-    private LocalDateTime createdAt;
+//    OderGroup N : 1 User
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
-    private String createdBy;
-
-    private LocalDateTime updatedAt;
-
-    private String updatedBy;
-
+    //    OrderGroup 1 : N OrderDetail
+    @OneToMany(mappedBy = "orderGroup")
+    private List<OrderDetail> orderDetailList;
 }

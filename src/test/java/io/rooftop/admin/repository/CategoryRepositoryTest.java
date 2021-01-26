@@ -19,18 +19,18 @@ class CategoryRepositoryTest extends AdminApplicationTests {
     private CategoryRepository categoryRepository;
 
     @Test
-    public void crate_category() throws Exception {
+    public void create_category() throws Exception {
         // Given
-        String type = "COMPUTER";
-        String title = "컴퓨터";
-        LocalDateTime createdAt = LocalDateTime.now();
-        String createdBy = "AdminServer";
+        String type = "TV";
+        String title = "텔레비젼";
+//        LocalDateTime createdAt = LocalDateTime.now();
+//        String createdBy = "AdminServer";
         // When
         Category category = Category.builder()
                 .type(type)
                 .title(title)
-                .createdAt(createdAt)
-                .createdBy(createdBy)
+//                .createdAt(createdAt)
+//                .createdBy(createdBy)
                 .build();
         Category savedCategory = categoryRepository.save(category);
         // Then

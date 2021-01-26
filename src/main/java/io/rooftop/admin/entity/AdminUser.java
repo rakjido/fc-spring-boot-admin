@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Builder
@@ -16,7 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Setter
 @Entity
-public class AdminUser {
+//@EntityListeners(AuditingEntityListener.class)
+public class AdminUser extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,14 +36,5 @@ public class AdminUser {
 
     private LocalDateTime registeredAt;
 
-    private LocalDateTime unregisteredA;
-
-    private LocalDateTime createdAt;
-
-    private String createdBy;
-
-    private LocalDateTime updatedAt;
-
-    private String updatedBy;
-
+    private LocalDateTime unregisteredAt;
 }

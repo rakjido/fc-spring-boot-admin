@@ -1,22 +1,18 @@
 package io.rooftop.admin.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
+@Getter
+@ToString(exclude = {"itemList", "category"})
 @Entity
-public class Partner {
+public class Partner extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,11 +35,11 @@ public class Partner {
 
     private LocalDateTime unregisteredAt;
 
-    private LocalDateTime createdAt;
+//   Partner N : 1 Category
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
 
-    private String createdBy;
-
-    private LocalDateTime updatedAt;
-
-    private String updatedBy;
+//    Partner 1 : N Item
+    @OneToMany(mappedBy = "partner")
+    private List<Item> itemList;
 }

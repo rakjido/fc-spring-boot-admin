@@ -1,6 +1,7 @@
 package io.rooftop.admin.entity;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,8 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
+@Accessors(chain = true)
 @Entity
-public class User {
+@ToString(exclude = {"orderGroup"})
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,12 +34,6 @@ public class User {
 
     private LocalDateTime unregisteredAt;
 
-    private LocalDateTime createdAt;
-
-    private String createdBy;
-
-    private LocalDateTime updatedAt;
-
-    private String updatedBy;
-
+    @OneToMany(mappedBy = "user")
+    private List<OrderGroup> orderGroupList;
 }

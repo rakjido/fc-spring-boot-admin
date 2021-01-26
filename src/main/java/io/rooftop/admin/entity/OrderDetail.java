@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-@ToString(exclude = {"user","item"})
+@ToString(exclude = {"user","item","orderGroup"})
 @Entity
-public class OrderDetail {
+public class OrderDetail extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +26,11 @@ public class OrderDetail {
 
     private BigDecimal totalPrice;
 
-    private LocalDateTime createdAt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OrderGroup orderGroup;
 
-    private String createdBy;
-
-    private LocalDateTime updatedAt;
-
-    private String updatedBy;
+//    OrderDetail N : 1 item
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Item item;
 
 }
