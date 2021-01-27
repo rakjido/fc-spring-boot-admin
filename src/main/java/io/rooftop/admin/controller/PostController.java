@@ -1,4 +1,4 @@
-package io.rooftop.admin.api;
+package io.rooftop.admin.controller;
 
 import io.rooftop.admin.dto.SearchParam;
 import org.springframework.web.bind.annotation.*;

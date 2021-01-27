@@ -1,6 +1,7 @@
-package io.rooftop.admin.api;
+package io.rooftop.admin.controller;
 
 import io.rooftop.admin.dto.SearchParam;
+import io.rooftop.admin.network.Header;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,5 +25,10 @@ public class GetController {
 //        System.out.println("searchParam.getEmail() = " + searchParam.getEmail());
 //        System.out.println("searchParam.getPage() = " + searchParam.getPage());
         return searchParam;
+    }
+
+    @GetMapping("/header")
+    public Header getHeader() {
+        return Header.builder().resultCode("OK").description("OK").build();
     }
 }
