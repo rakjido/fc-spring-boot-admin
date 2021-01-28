@@ -18,30 +18,30 @@ import javax.annotation.PostConstruct;
 // Using CrudController + BaseService
 //=====================================================================
 
-@RestController
-@RequestMapping("/api/user")
-public class UserApiController extends CrudController<UserApiRequestDto, UserApiResponseDto, User> {
-
-}
+//@RestController
+//@RequestMapping("/api/user")
+//public class UserApiController extends CrudController<UserApiRequestDto, UserApiResponseDto, User> {
+//
+//}
 
 //=====================================================================
 // Using CrudController
 //=====================================================================
 
 
-//@Slf4j
-//@RequiredArgsConstructor
-//@RestController
-//@RequestMapping("/api/user")
-//public class UserApiController extends CrudController<UserApiRequestDto, UserApiResponseDto> {
-//
-//    private final UserApiLogicService userApiLogicService;
-//
-//    @PostConstruct
-//    public void init() {
-//        this.baseService = userApiLogicService;
-//    }
-//}
+@Slf4j
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/user")
+public class UserApiController extends CrudController<UserApiRequestDto, UserApiResponseDto> {
+
+    private final UserApiLogicService userApiLogicService;
+
+    @PostConstruct
+    public void init() {
+        this.baseService = userApiLogicService;
+    }
+}
 
 //=====================================================================
 // General

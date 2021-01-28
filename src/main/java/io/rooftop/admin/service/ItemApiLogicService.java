@@ -15,132 +15,50 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-@RequiredArgsConstructor
-@Service
-public class ItemApiLogicService extends BaseService<ItemApiRequestDto, ItemApiResponseDto, Item> {
-
-    private final PartnerRepository partnerRepository;
-
-    @Override
-    public Header<ItemApiResponseDto> create(Header<ItemApiRequestDto> request) {
-        return Optional.ofNullable(request.getData())
-                .map(itemApiRequestDto -> {
-                    Item item = Item.builder()
-                            .status(ItemStatus.WAITING)
-                            .name(itemApiRequestDto.getName())
-                            .title(itemApiRequestDto.getTitle())
-                            .content(itemApiRequestDto.getContent())
-                            .price(itemApiRequestDto.getPrice())
-                            .brandName(itemApiRequestDto.getBrandName())
-                            .registeredAt(LocalDateTime.now())
-                            .partner(partnerRepository.getOne(itemApiRequestDto.getPartnerId()))
-                            .build();
-                    return item;
-                })
-                .map(item -> baseRepository.save(item))
-                .map(newItem -> response(newItem))
-                .orElseGet(()->Header.ERROR("No Data Found"));
-
-//        ItemApiRequestDto itemApiRequestDto = request.getData();
-//        Item item = Item.builder()
-//                .status(ItemStatus.WAITING)
-//                .name(itemApiRequestDto.getName())
-//                .title(itemApiRequestDto.getTitle())
-//                .content(itemApiRequestDto.getContent())
-//                .price(itemApiRequestDto.getPrice())
-//                .brandName(itemApiRequestDto.getBrandName())
-//                .registeredAt(LocalDateTime.now())
-//                .partner(partnerRepository.getOne(itemApiRequestDto.getPartnerId()))
-//                .build();
-//        Item savedItem = baseRepository.save(item);
-//        return response(savedItem);
-    }
-
-    @Override
-    public Header<ItemApiResponseDto> read(Long id) {
-        return baseRepository.findById(id)
-                .map(item -> response(item))
-                .orElseGet(() -> Header.ERROR("No Data Found"));
-    }
-
-    @Override
-    public Header<ItemApiResponseDto> update(Header<ItemApiRequestDto> request) {
-        ItemApiRequestDto itemApiRequestDto = request.getData();
-        Optional<Item> optional = baseRepository.findById(itemApiRequestDto.getId());
-
-        return optional.map(item -> {
-                item
-                    .setStatus(itemApiRequestDto.getStatus())
-                    .setName(itemApiRequestDto.getName())
-                    .setTitle(itemApiRequestDto.getTitle())
-                    .setContent(itemApiRequestDto.getContent())
-                    .setPrice(itemApiRequestDto.getPrice())
-                    .setBrandName(itemApiRequestDto.getBrandName())
-                    .setRegisteredAt(LocalDateTime.now())
-                    .setPartner(partnerRepository.getOne(itemApiRequestDto.getPartnerId()));
-            return item;
-        }).map(item -> baseRepository.save(item))
-        .map(savedItem -> response(savedItem))
-        .orElseGet(() -> Header.ERROR("No Data Found"));
-    }
-
-    @Override
-    public Header delete(Long id) {
-        Optional<Item> optional = baseRepository.findById(id);
-        return optional.map(item -> {
-            baseRepository.delete(item);
-            return Header.OK();
-        })
-                .orElseGet(() -> Header.ERROR("No Data Found"));
-    }
-
-    private Header<ItemApiResponseDto> response(Item item) {
-        ItemApiResponseDto itemApiResponseDto = ItemApiResponseDto.builder()
-                .id(item.getId())
-                .status(item.getStatus())
-                .name(item.getName())
-                .title(item.getTitle())
-                .content(item.getContent())
-                .price(item.getPrice())
-                .brandName(item.getBrandName())
-                .registeredAt(item.getRegisteredAt())
-                .unregisteredAt(item.getUnregisteredAt())
-                .partnerId(item.getPartner().getId())
-                .build();
-
-        return Header.OK(itemApiResponseDto);
-    }
-
-}
-
 //@RequiredArgsConstructor
 //@Service
-//public class ItemApiLogicService implements CrudInterface<ItemApiRequestDto, ItemApiResponseDto> {
-//
-//    private final ItemRepository itemRepository;
+//public class ItemApiLogicService extends BaseService<ItemApiRequestDto, ItemApiResponseDto, Item> {
 //
 //    private final PartnerRepository partnerRepository;
 //
 //    @Override
 //    public Header<ItemApiResponseDto> create(Header<ItemApiRequestDto> request) {
-//        ItemApiRequestDto itemApiRequestDto = request.getData();
-//        Item item = Item.builder()
-//                .status(ItemStatus.WAITING)
-//                .name(itemApiRequestDto.getName())
-//                .title(itemApiRequestDto.getTitle())
-//                .content(itemApiRequestDto.getContent())
-//                .price(itemApiRequestDto.getPrice())
-//                .brandName(itemApiRequestDto.getBrandName())
-//                .registeredAt(LocalDateTime.now())
-//                .partner(partnerRepository.getOne(itemApiRequestDto.getPartnerId()))
-//                .build();
-//        Item savedItem = itemRepository.save(item);
-//        return response(savedItem);
+//        return Optional.ofNullable(request.getData())
+//                .map(itemApiRequestDto -> {
+//                    Item item = Item.builder()
+//                            .status(ItemStatus.WAITING)
+//                            .name(itemApiRequestDto.getName())
+//                            .title(itemApiRequestDto.getTitle())
+//                            .content(itemApiRequestDto.getContent())
+//                            .price(itemApiRequestDto.getPrice())
+//                            .brandName(itemApiRequestDto.getBrandName())
+//                            .registeredAt(LocalDateTime.now())
+//                            .partner(partnerRepository.getOne(itemApiRequestDto.getPartnerId()))
+//                            .build();
+//                    return item;
+//                })
+//                .map(item -> baseRepository.save(item))
+//                .map(newItem -> response(newItem))
+//                .orElseGet(()->Header.ERROR("No Data Found"));
+//
+////        ItemApiRequestDto itemApiRequestDto = request.getData();
+////        Item item = Item.builder()
+////                .status(ItemStatus.WAITING)
+////                .name(itemApiRequestDto.getName())
+////                .title(itemApiRequestDto.getTitle())
+////                .content(itemApiRequestDto.getContent())
+////                .price(itemApiRequestDto.getPrice())
+////                .brandName(itemApiRequestDto.getBrandName())
+////                .registeredAt(LocalDateTime.now())
+////                .partner(partnerRepository.getOne(itemApiRequestDto.getPartnerId()))
+////                .build();
+////        Item savedItem = baseRepository.save(item);
+////        return response(savedItem);
 //    }
 //
 //    @Override
 //    public Header<ItemApiResponseDto> read(Long id) {
-//        return itemRepository.findById(id)
+//        return baseRepository.findById(id)
 //                .map(item -> response(item))
 //                .orElseGet(() -> Header.ERROR("No Data Found"));
 //    }
@@ -148,7 +66,7 @@ public class ItemApiLogicService extends BaseService<ItemApiRequestDto, ItemApiR
 //    @Override
 //    public Header<ItemApiResponseDto> update(Header<ItemApiRequestDto> request) {
 //        ItemApiRequestDto itemApiRequestDto = request.getData();
-//        Optional<Item> optional = itemRepository.findById(itemApiRequestDto.getId());
+//        Optional<Item> optional = baseRepository.findById(itemApiRequestDto.getId());
 //
 //        return optional.map(item -> {
 //                item
@@ -161,16 +79,16 @@ public class ItemApiLogicService extends BaseService<ItemApiRequestDto, ItemApiR
 //                    .setRegisteredAt(LocalDateTime.now())
 //                    .setPartner(partnerRepository.getOne(itemApiRequestDto.getPartnerId()));
 //            return item;
-//        }).map(item -> itemRepository.save(item))
+//        }).map(item -> baseRepository.save(item))
 //        .map(savedItem -> response(savedItem))
 //        .orElseGet(() -> Header.ERROR("No Data Found"));
 //    }
 //
 //    @Override
 //    public Header delete(Long id) {
-//        Optional<Item> optional = itemRepository.findById(id);
+//        Optional<Item> optional = baseRepository.findById(id);
 //        return optional.map(item -> {
-//            itemRepository.delete(item);
+//            baseRepository.delete(item);
 //            return Header.OK();
 //        })
 //                .orElseGet(() -> Header.ERROR("No Data Found"));
@@ -192,4 +110,86 @@ public class ItemApiLogicService extends BaseService<ItemApiRequestDto, ItemApiR
 //
 //        return Header.OK(itemApiResponseDto);
 //    }
+//
 //}
+
+@RequiredArgsConstructor
+@Service
+public class ItemApiLogicService implements CrudInterface<ItemApiRequestDto, ItemApiResponseDto> {
+
+    private final ItemRepository itemRepository;
+
+    private final PartnerRepository partnerRepository;
+
+    @Override
+    public Header<ItemApiResponseDto> create(Header<ItemApiRequestDto> request) {
+        ItemApiRequestDto itemApiRequestDto = request.getData();
+        Item item = Item.builder()
+                .status(ItemStatus.WAITING)
+                .name(itemApiRequestDto.getName())
+                .title(itemApiRequestDto.getTitle())
+                .content(itemApiRequestDto.getContent())
+                .price(itemApiRequestDto.getPrice())
+                .brandName(itemApiRequestDto.getBrandName())
+                .registeredAt(LocalDateTime.now())
+                .partner(partnerRepository.getOne(itemApiRequestDto.getPartnerId()))
+                .build();
+        Item savedItem = itemRepository.save(item);
+        return response(savedItem);
+    }
+
+    @Override
+    public Header<ItemApiResponseDto> read(Long id) {
+        return itemRepository.findById(id)
+                .map(item -> response(item))
+                .orElseGet(() -> Header.ERROR("No Data Found"));
+    }
+
+    @Override
+    public Header<ItemApiResponseDto> update(Header<ItemApiRequestDto> request) {
+        ItemApiRequestDto itemApiRequestDto = request.getData();
+        Optional<Item> optional = itemRepository.findById(itemApiRequestDto.getId());
+
+        return optional.map(item -> {
+                item
+                    .setStatus(itemApiRequestDto.getStatus())
+                    .setName(itemApiRequestDto.getName())
+                    .setTitle(itemApiRequestDto.getTitle())
+                    .setContent(itemApiRequestDto.getContent())
+                    .setPrice(itemApiRequestDto.getPrice())
+                    .setBrandName(itemApiRequestDto.getBrandName())
+                    .setRegisteredAt(LocalDateTime.now())
+                    .setPartner(partnerRepository.getOne(itemApiRequestDto.getPartnerId()));
+            return item;
+        }).map(item -> itemRepository.save(item))
+        .map(savedItem -> response(savedItem))
+        .orElseGet(() -> Header.ERROR("No Data Found"));
+    }
+
+    @Override
+    public Header delete(Long id) {
+        Optional<Item> optional = itemRepository.findById(id);
+        return optional.map(item -> {
+            itemRepository.delete(item);
+            return Header.OK();
+        })
+                .orElseGet(() -> Header.ERROR("No Data Found"));
+    }
+
+    private Header<ItemApiResponseDto> response(Item item) {
+        ItemApiResponseDto itemApiResponseDto = ItemApiResponseDto.builder()
+                .id(item.getId())
+                .status(item.getStatus())
+                .name(item.getName())
+                .title(item.getTitle())
+                .content(item.getContent())
+                .price(item.getPrice())
+                .brandName(item.getBrandName())
+                .registeredAt(item.getRegisteredAt())
+                .unregisteredAt(item.getUnregisteredAt())
+                .partnerId(item.getPartner().getId())
+                .build();
+
+        return Header.OK(itemApiResponseDto);
+    }
+}

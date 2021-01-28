@@ -16,29 +16,29 @@ import javax.annotation.PostConstruct;
 // Using CrudController + BaseService
 //=====================================================================
 
-@RestController
-@RequestMapping("/api/orderGroup")
-public class OrderGroupApiController extends CrudController<OrderGroupApiRequestDto, OrderGroupApiResponseDto, OrderGroup> {
-
-}
+//@RestController
+//@RequestMapping("/api/orderGroup")
+//public class OrderGroupApiController extends CrudController<OrderGroupApiRequestDto, OrderGroupApiResponseDto, OrderGroup> {
+//
+//}
 
 
 //=====================================================================
 // Using CrudController
 //=====================================================================
 
-//@RequiredArgsConstructor
-//@RestController
-//@RequestMapping("/api/orderGroup")
-//public class OrderGroupApiController extends CrudController<OrderGroupApiRequestDto, OrderGroupApiResponseDto> {
-//
-//    private final OrderGroupApiLogicService orderGroupApiLogicService;
-//
-//    @PostConstruct
-//    public void init() {
-//        this.baseService = orderGroupApiLogicService;
-//    }
-//}
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/orderGroup")
+public class OrderGroupApiController extends CrudController<OrderGroupApiRequestDto, OrderGroupApiResponseDto> {
+
+    private final OrderGroupApiLogicService orderGroupApiLogicService;
+
+    @PostConstruct
+    public void init() {
+        this.baseService = orderGroupApiLogicService;
+    }
+}
 
 //=====================================================================
 // General
