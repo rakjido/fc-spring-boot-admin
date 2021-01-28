@@ -1,2 +1,0 @@
-io/rooftop/admin/AdminApplication.java
- io.rooftop.admin.AdminApplication
