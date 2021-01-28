@@ -1,19 +1,18 @@
 package io.rooftop.admin.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Accessors(chain = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 @Entity
 public class OrderGroup extends BaseEntity {
 
