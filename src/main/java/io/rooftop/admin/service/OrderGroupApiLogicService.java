@@ -1,5 +1,6 @@
 package io.rooftop.admin.service;
 
+import io.rooftop.admin.dto.OrderType;
 import io.rooftop.admin.entity.OrderGroup;
 import io.rooftop.admin.network.Header;
 import io.rooftop.admin.network.request.OrderGroupApiRequestDto;
@@ -26,7 +27,7 @@ public class OrderGroupApiLogicService implements CrudInterface<OrderGroupApiReq
         OrderGroupApiRequestDto requestDto = request.getData();
         OrderGroup orderGroup = OrderGroup.builder()
                 .status(requestDto.getStatus())
-                .orderType(requestDto.getOrderType())
+                .orderType(OrderType.ALL)
                 .revAddress(requestDto.getRevAddress())
                 .revName(requestDto.getRevName())
                 .paymentType(requestDto.getPaymentType())

@@ -1,5 +1,6 @@
 package io.rooftop.admin.network.request;
 
+import io.rooftop.admin.dto.ItemStatus;
 import io.rooftop.admin.entity.OrderDetail;
 import io.rooftop.admin.entity.Partner;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class ItemApiRequestDto {
 
     private Long id;
 
-    private String status;
+    private ItemStatus status;
 
     private String name;
 

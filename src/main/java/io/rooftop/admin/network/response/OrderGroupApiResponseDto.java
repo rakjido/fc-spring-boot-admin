@@ -1,5 +1,6 @@
 package io.rooftop.admin.network.response;
 
+import io.rooftop.admin.dto.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ public class OrderGroupApiResponseDto {
 
     private String status;
 
-    private String orderType;
+    private OrderType orderType;
 
     private String revAddress;
 

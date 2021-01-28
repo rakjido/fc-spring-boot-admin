@@ -1,5 +1,6 @@
 package io.rooftop.admin.entity;
 
+import io.rooftop.admin.dto.UserStatus;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -22,7 +23,8 @@ public class User extends BaseEntity {
 
     private String password;
 
-    private String status;
+    @Enumerated(value = EnumType.STRING)
+    private UserStatus status ;
 
     private String account;
 

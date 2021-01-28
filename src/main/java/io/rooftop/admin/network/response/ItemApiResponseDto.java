@@ -1,5 +1,6 @@
 package io.rooftop.admin.network.response;
 
+import io.rooftop.admin.dto.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class ItemApiResponseDto {
 
     private Long id;
 
-    private String status;
+    private ItemStatus status;
 
     private String name;
 

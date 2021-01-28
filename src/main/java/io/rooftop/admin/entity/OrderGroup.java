@@ -1,5 +1,6 @@
 package io.rooftop.admin.entity;
 
+import io.rooftop.admin.dto.OrderType;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -22,8 +23,8 @@ public class OrderGroup extends BaseEntity {
 
     private String status;
 
-//  주문형태 : 일괄 / 개별
-    private String orderType;
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType;
 
     private String revAddress;
 

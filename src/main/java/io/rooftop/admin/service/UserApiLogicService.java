@@ -1,5 +1,6 @@
 package io.rooftop.admin.service;
 
+import io.rooftop.admin.dto.UserStatus;
 import io.rooftop.admin.entity.User;
 import io.rooftop.admin.network.Header;
 import io.rooftop.admin.network.request.UserApiRequestDto;
@@ -27,7 +28,7 @@ public class UserApiLogicService implements CrudInterface<UserApiRequestDto, Use
         User user = User.builder()
                     .account(userApiRequestDto.getAccount())
                     .password(userApiRequestDto.getPassword())
-                    .status("REGISTERED")
+                    .status(UserStatus.REGISTERED)
                     .phoneNumber(userApiRequestDto.getPhoneNumber())
                     .email(userApiRequestDto.getEmail())
                     .registeredAt(LocalDateTime.now())

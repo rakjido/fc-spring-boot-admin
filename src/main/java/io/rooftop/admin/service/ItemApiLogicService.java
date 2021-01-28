@@ -1,5 +1,6 @@
 package io.rooftop.admin.service;
 
+import io.rooftop.admin.dto.ItemStatus;
 import io.rooftop.admin.entity.Item;
 import io.rooftop.admin.network.Header;
 import io.rooftop.admin.network.request.ItemApiRequestDto;
@@ -25,7 +26,7 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequestDto, Ite
     public Header<ItemApiResponseDto> create(Header<ItemApiRequestDto> request) {
         ItemApiRequestDto itemApiRequestDto = request.getData();
         Item item = Item.builder()
-                .status(itemApiRequestDto.getStatus())
+                .status(ItemStatus.WAITING)
                 .name(itemApiRequestDto.getName())
                 .title(itemApiRequestDto.getTitle())
                 .content(itemApiRequestDto.getContent())

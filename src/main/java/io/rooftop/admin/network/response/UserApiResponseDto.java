@@ -1,6 +1,7 @@
 package io.rooftop.admin.network.response;
 
 
+import io.rooftop.admin.dto.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class UserApiResponseDto {
 
     private String password;
 
-    private String status;
+    private UserStatus status;
 
     private String email;
 

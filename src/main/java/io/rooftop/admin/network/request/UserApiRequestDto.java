@@ -1,5 +1,6 @@
 package io.rooftop.admin.network.request;
 
+import io.rooftop.admin.dto.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class UserApiRequestDto {
 
     private String phoneNumber;
 
-    private String status;
+    private UserStatus status;
 
     private LocalDateTime registeredAt;
 
