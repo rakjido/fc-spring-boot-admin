@@ -1,6 +1,7 @@
 package io.rooftop.admin.repository;
 
 import io.rooftop.admin.AdminApplicationTests;
+import io.rooftop.admin.dto.ItemStatus;
 import io.rooftop.admin.entity.Item;
 import io.rooftop.admin.entity.Partner;
 import org.junit.jupiter.api.AfterEach;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -23,14 +25,14 @@ class ItemRepositoryTest extends AdminApplicationTests {
     private PartnerRepository partnerRepository;
 
     public Item createItem(){
-        Partner partner = partnerRepository.findByName("Partner1").get();
+        Partner partner = partnerRepository.findByName("Partner2").get();
         return Item.builder()
-                .status("UNREGISETERED")
+                .status(ItemStatus.UNREGISTERED)
                 .name("애플 맥북")
                 .title("맥북프로 2019")
                 .content("2019년 형 맥북프로")
                 .brandName("Apple")
-                .price(1550000)
+                .price(BigDecimal.valueOf(1550000))
                 .registeredAt(LocalDateTime.now())
 //                .createdAt(LocalDateTime.now())
 //                .createdBy("Partner1")

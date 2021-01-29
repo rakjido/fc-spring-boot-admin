@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
+@Accessors(chain = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,5 +39,5 @@ public class OrderGroupApiResponseDto {
 
     private Long userId;
 
-
+    private List<ItemApiResponseDto> itemApiResponseList;
 }

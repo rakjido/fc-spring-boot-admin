@@ -1,6 +1,7 @@
 package io.rooftop.admin.repository;
 
 import io.rooftop.admin.AdminApplicationTests;
+import io.rooftop.admin.dto.OrderType;
 import io.rooftop.admin.entity.OrderGroup;
 import io.rooftop.admin.entity.User;
 import org.junit.jupiter.api.Test;
@@ -22,10 +23,10 @@ class OrderGroupRepositoryTest extends AdminApplicationTests {
     @Test
     public void create_ordergroup_test() throws Exception {
         // Given
-        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222").get();
+        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-2222-2222").get();
         OrderGroup orderGroup = OrderGroup.builder()
                 .status("COMPLETE")
-                .orderType("ALL")
+                .orderType(OrderType.ALL)
                 .revAddress("서울시 강남구")
                 .revName("홍길동")
                 .paymentType("CARD")
